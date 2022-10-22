@@ -2,9 +2,7 @@
 
 const int Fixed::fraction  = 8;
 
-Fixed::Fixed() : value(0)
-{
-}
+Fixed::Fixed() : value(0) { }
 
 Fixed::Fixed(const int i)
 {
@@ -18,30 +16,15 @@ Fixed::Fixed(const float f)
 	this->value = roundf(fl * 256);
 }
 
-Fixed::Fixed(Fixed const &rhs)
-{
-	*this = rhs;
-}
+Fixed::Fixed(Fixed const &rhs) { *this = rhs; }
 
-Fixed&	Fixed::operator = (Fixed const &rhs) 
-{
-	this->value = rhs.getRawBits();
-	return (*this);
-}
+Fixed&	Fixed::operator = (Fixed const &rhs)  { this->value = rhs.getRawBits(); return (*this); }
 
-Fixed::~Fixed()
-{
-}
+Fixed::~Fixed(){}
 
-int	Fixed::getRawBits( void ) const
-{
-	return this->value;
-}
+int	Fixed::getRawBits( void ) const { return this->value; }
 
-void	Fixed::setRawBits(int const raw)
-{
-	this->value = raw;
-}
+void	Fixed::setRawBits(int const raw) { this->value = raw; }
 
 float	Fixed::toFloat(void) const
 {
@@ -51,34 +34,20 @@ float	Fixed::toFloat(void) const
 	return f / 256;
 }
 
-int		Fixed::toInt(void) const 
-{
-	return (this->value / 256);
-}
+int		Fixed::toInt(void) const { return (this->value / 256); }
 
-std::ostream& operator << (std::ostream &out, const Fixed &rhs)
-{
-	out << rhs.toFloat();
-	return out;
-}
+std::ostream& operator << (std::ostream &out, const Fixed &rhs) { out << rhs.toFloat(); return out; }
 
-Fixed	Fixed::operator ++()
-{
-	this->value++;
-	return (*this);
-}
+Fixed	Fixed::operator ++() { this->value++; return (*this); }
+
 Fixed	Fixed::operator ++(int)
 {
 	Fixed tmp(*this);
 	++(this->value);
 	return (tmp);
+}
 
-}
-Fixed	Fixed::operator --()
-{
-	this->value++;
-	return (*this);
-}
+Fixed	Fixed::operator --() { this->value++; return (*this); }
 
 Fixed	Fixed::operator --(int)
 {
@@ -87,33 +56,24 @@ Fixed	Fixed::operator --(int)
 	return (tmp);
 }
 bool Fixed::operator != (const	Fixed& rhs) { return (this->toFloat() != rhs.toFloat()); }
+
 bool Fixed::operator == (const	Fixed& rhs) { return (this->toFloat() == rhs.toFloat()); }
+
 bool Fixed::operator <= (const	Fixed& rhs) { return (this->toFloat() <= rhs.toFloat()); }
+
 bool Fixed::operator >= (const	Fixed& rhs) { return (this->toFloat() >= rhs.toFloat()); }
+
 bool Fixed::operator <  (const	Fixed& rhs) { return (this->toFloat() < rhs.toFloat()); }
+
 bool Fixed::operator >  (const	Fixed& rhs) { return (this->toFloat() > rhs.toFloat()); }
 
-Fixed	Fixed::operator -(const Fixed& rhs)
-{
-	Fixed	temp(this->toFloat() - rhs.toFloat());
-	return (temp);
-}
-Fixed	Fixed::operator /(const Fixed& rhs)
-{
-	Fixed	temp(this->toFloat() / rhs.toFloat());
-	return (temp);
-}
-Fixed	Fixed::operator *(const Fixed& rhs)
-{
-	Fixed	temp (this->toFloat() * rhs.toFloat());
-	return (temp);
-}
+Fixed	Fixed::operator -(const Fixed& rhs) { return (Fixed(this->toFloat() - rhs.toFloat())); }
 
-Fixed	Fixed::operator +(const Fixed& rhs)
-{
-	Fixed	temp(this->toFloat() + rhs.toFloat());
-	return (temp);
-}
+Fixed	Fixed::operator /(const Fixed& rhs) { return (Fixed(this->toFloat() / rhs.toFloat())); }
+
+Fixed	Fixed::operator *(const Fixed& rhs) { return(Fixed(this->toFloat() * rhs.toFloat())); }
+
+Fixed	Fixed::operator +(const Fixed& rhs) { return (Fixed(this->toFloat() + rhs.toFloat())); }
 
 Fixed& Fixed::max(Fixed &first, Fixed &second)
 {
