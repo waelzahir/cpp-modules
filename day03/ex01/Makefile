@@ -1,9 +1,9 @@
 CC= c++
-FLAGS= -Wall -Wextra -Werror -std=c++98 -g
-NAME= Fixed
-SRC= Fixed
+FLAGS= -Wall -Wextra -Werror -std=c++98 
+NAME= Scav
+SRC= ClapTrap ScavTrap
 OBJ= $(SRC:=.o)
-HEADERS = Fixed.hpp
+HEADERS = ClapTrap.hpp ScavTrap.hpp
 MAIN= main.cpp
 
 %.o: %.cpp $(HEADERS) 
