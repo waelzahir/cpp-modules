@@ -81,6 +81,7 @@ Fixed& Fixed::max(Fixed &first, Fixed &second)
 		return first;
 	return (second); 
 }
+
 Fixed& Fixed::max(	Fixed const &first, Fixed const &second)
 {
 	if (const_cast<Fixed&>(first) >= const_cast<Fixed&>(second))
