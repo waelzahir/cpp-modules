@@ -3,17 +3,13 @@
 ScavTrap::ScavTrap() : ClapTrap()
 {
 	std::cout << "ScavTrap constructor" << std::endl;
-	this->hp = 100;
 	this->ep = 50;
-	this->ad = 20;
 }
 
 ScavTrap::ScavTrap(std::string &name) : ClapTrap(name)
 {
 	std::cout << "ScavTrap assignment Constructor for " << this->name << std::endl;
-	this->hp = 100;
 	this->ep = 50;
-	this->ad = 20;
 }
 ScavTrap::ScavTrap(ScavTrap const &rhs) : ClapTrap()
 {

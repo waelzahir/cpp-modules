@@ -13,9 +13,7 @@ DiamondTrap::DiamondTrap(std::string &name)
 	std::cout << "Diamond assignmnt constructor" << std::endl;
 	this->name = name;
 	ClapTrap::name = name + "_clap_suffix";
-	this->hp = FragTrap::hp;
-	this->ep = ScavTrap::ep;
-	this->ad = FragTrap::ad;
+	std::cout << this->hp << " " << this->ep << " " << this->ad << std::endl;
 } 
 DiamondTrap::DiamondTrap(DiamondTrap const &rhs)
 {
