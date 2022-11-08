@@ -28,7 +28,6 @@ int main()
 		hh.beSigned(root);
 		hh.execute(root);
 		std::cout << hh << std::endl;
-		root.executeForm(hh);
 	}
 	catch (std::exception & e)
 	{

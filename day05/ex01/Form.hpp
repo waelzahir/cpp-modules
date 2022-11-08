@@ -16,27 +16,21 @@ class Form
 		Form(Form	const &rhs);
 		Form& operator = (Form	const &rhs);
 		~Form();
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				const	char	*what() const throw()
-				{
-					return "grade too high";
-				}
-		};
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				const	char	*what() const throw()
-				{
-					return  "grade too low";
-				}
-		};
 		int getSignGrade() const;
 		int getSignExecute() const;
 		bool getSign() const;
 		const std::string &getName() const;
-		void	beSigned(Bureaucrat const &rhs) ;
+		void	beSigned(Bureaucrat const &rhs);
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				const	char*	what() const throw();
+		};
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				const	char*	what() const throw();
+		};
 };
 
 std::ostream& operator << (std::ostream &out, Form const &rhs);

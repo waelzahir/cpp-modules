@@ -9,9 +9,9 @@ Form::Form(std::string name, int sign, int execute): name(name), sign(0) , b_sig
 {
 	std::cout << "Form assignment Constructor" <<std::endl;
 	if (sign < 1 || execute < 1)
-		throw GradeTooHighException();
+		throw Form::GradeTooHighException();
 	if (sign > 150 || execute > 150)
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 }
 Form::Form(Form	const &rhs) : name(rhs.name), b_sign(rhs.b_sign), b_execute(rhs.b_execute) 
 {
@@ -46,6 +46,7 @@ const std::string& Form::getName() const
 }
 std::ostream& operator << (std::ostream &out, Form const &rhs)
 {
+	out << "       <begin>        " << std::endl;
 	out << "---------Form---------\n";
 	out << "name: " << rhs.getName() << "\n";
 	if (rhs.getSign())
@@ -55,12 +56,23 @@ std::ostream& operator << (std::ostream &out, Form const &rhs)
 	out << "grade to sign: " << rhs.getSignGrade() << "\n";
 	out << "grade to execute: " << rhs.getSignExecute() <<"\n";
 	out << "---------Form---------" << std::endl;
+	out << "         <end>        " << std::endl;
 	return (out);
 }
 
 void	Form::beSigned(Bureaucrat const &rhs) 
 {
 	if (rhs.getGrade() > this->b_sign)
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 	this->sign = true;
+}
+
+const	char*	Form::GradeTooHighException::what() const throw()
+{
+	return "grade too high";
+}
+
+const	char*	Form::GradeTooLowException::what() const throw()
+{
+	return  "grade too low";
 }

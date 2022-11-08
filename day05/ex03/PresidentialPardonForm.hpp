@@ -16,10 +16,7 @@ class PresidentialPardonForm : public Form
 		class PresidentialPardonEx : public std::exception
 		{
 			public:
-				const	char	*what() const throw()
-				{
-					return  "nari t7ewiti";
-				}
+				const	char	*what() const throw();
 		};
 };
 

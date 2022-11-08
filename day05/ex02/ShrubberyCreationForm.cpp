@@ -31,7 +31,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	if (!this->getSign())
 		throw DocumentNotSigned();
 	if (this->getSignExecute() < executor.getGrade())
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 	std::string filename(this->target + "_shrubbery");
 	std::ofstream file;
 	file.open(filename);
@@ -42,4 +42,9 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 		}
 	file << "       ###\n      #o###\n    #####o###\n   #o##/|#/###\n    ###/|/#o#\n     # }|{  #\n       }|{" << std::endl;
 	file.close(); 
+}
+
+const	char*	ShrubberyCreationForm::DocumentNotSigned::what() const throw()
+{
+	return  "Document Not Signed";
 }

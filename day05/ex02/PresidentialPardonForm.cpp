@@ -29,6 +29,11 @@ void	PresidentialPardonForm::execute(Bureaucrat const & executor) const
 	if (!this->getSign())
 		throw PresidentialPardonEx();
 	if (this->getSignExecute() < executor.getGrade())
-		throw GradeTooLowException();
-	std::cout << this->target << " 3fa 3lik sidna" << std::endl;
+		throw Form::GradeTooLowException();
+	std::cout << this->target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
+}
+
+const	char*	PresidentialPardonForm::PresidentialPardonEx::what() const throw()
+{
+	return  "ma3andek zher.";
 }

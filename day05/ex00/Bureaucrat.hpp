@@ -5,7 +5,7 @@
 class Bureaucrat
 {
 	private:
-		std::string const name;
+		const std::string  name;
 		int grade;
 	public:
 		Bureaucrat();
@@ -17,22 +17,15 @@ class Bureaucrat
 		void	gradeDown();
 		int		getGrade() const;
 		const std::string& getName() const;
-
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				const	char	*what() const throw()
-				{
-					return "grade too high";
-				}
+				const	char*	what() const throw();
 		};
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				const	char	*what() const throw()
-				{
-					return  "grade too low";
-				}
+				const	char*	what() const throw();
 		};
 };
 

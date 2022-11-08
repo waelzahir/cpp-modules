@@ -16,10 +16,7 @@ class RobotomyRequestForm : public Form
 		class RobotomyUnsucsessfull : public std::exception
 		{
 			public:
-				const	char	*what() const throw()
-				{
-					return  "RobotomyUnsucsessfull";
-				}
+				const	char	*what() const throw();
 		};
 };
 #endif

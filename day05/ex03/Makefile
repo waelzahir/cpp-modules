@@ -1,6 +1,6 @@
 CC= c++
 FLAGS= -Wall -Wextra -Werror -std=c++98 
-NAME= Form
+NAME= Intern
 SRC= Form Bureaucrat ShrubberyCreationForm PresidentialPardonForm  RobotomyRequestForm Intern
 OBJ= $(SRC:=.o)
 HEADERS = $(SRC:=.hpp)
@@ -18,4 +18,4 @@ clean:
 		@ rm -rf $(OBJ)
 fclean: clean
 		@ rm -rf $(NAME)
-re: fclean all%           
+re: fclean all

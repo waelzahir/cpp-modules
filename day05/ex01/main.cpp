@@ -2,9 +2,6 @@
 #include "Bureaucrat.hpp"
 
 
-typedef struct p
-{
-} T_t;
 int main()
 {
 	Bureaucrat ahmed(51, "ahmed");
@@ -22,7 +19,7 @@ int main()
 	}
 
 	try{
-		Form p("zapi", 0, 50);
+		Form p("batata", 0, 50);
 		std::cout << p;
 		ahmed.signForm(p);
 		std::cout << p;
@@ -31,6 +28,5 @@ int main()
 	{
 		std::cout << e.what() <<std::endl;
 	}
-	std::cout<<"ref"<< sizeof(T_t) <<std::endl;
 }
 

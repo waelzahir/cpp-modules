@@ -9,6 +9,7 @@
 
 int main()
 {
+	Form *form;
 	try
 	{
 		Bureaucrat root(1, "ouail");
@@ -31,15 +32,20 @@ int main()
 		std::cout << hh << std::endl;
 		root.executeForm(hh);
 		Intern pl;
-		Form *form = pl.makeForm("PresidentialPardonForm", "3azwa");
+		form = pl.makeForm("PresidentialPardonForm", "obama");
 		if (form)
+		{
 			std::cout << *form << std::endl;
-		(*form).beSigned(root);
-		(*form).execute(root);
+			(*form).beSigned(root);
+			(*form).execute(root);
+			root.executeForm(*form);
+		}
+		delete form;
 	}
 	catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
+		delete form;
 	}
 
 }

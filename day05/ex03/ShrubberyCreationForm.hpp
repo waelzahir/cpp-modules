@@ -19,10 +19,7 @@ class ShrubberyCreationForm : public Form
 		class DocumentNotSigned : public std::exception
 		{
 			public:
-				const	char	*what() const throw()
-				{
-					return  "Document Not Signed";
-				}
+				const	char	*what() const throw();
 		};
 };
 

@@ -89,4 +89,14 @@ void	Bureaucrat::executeForm(Form const & form)
 	}
 	else
 		std::cout << this->name << " can't execute the form " << form.getName() << std::endl;
-} 
+}
+
+const	char*	Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return "grade too high";
+}
+
+const	char*	Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return  "grade too low";
+}
