@@ -1,19 +1,30 @@
 #include <iostream>
-#include "whatever.hpp"
+#include "iter.hpp"
 
+void	print(int i)
+{
+	std::cout << i << std::endl; 
+}
+void	prints(const char	*str)
+{
+	std::cout << str << std::endl;
+}
+void	printstr(std::string str)
+{
+	std::cout << str << std::endl;
+}
 int main( void ) 
 {
-	int a = 2;
-	int b = 3;
-	::swap( a, b );
-	std::cout << "a = " << a << ", b = " << b << std::endl;
-	std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
-	std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
-	std::string c = "chaine1";
-	std::string d = "chaine2";
-	::swap(c, d);
-	std::cout << "c = " << c << ", d = " << d << std::endl;
-	std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
-	std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
-	return 0;
+	int ar[] = {1,5,6,9,7,5,0};
+	iter(ar,7, print);
+	const char *str[]  = {"aloalo", "alo", "marhaba"};
+	iter(str, 3, prints);
+	std::string *strd = new std::string[4];
+	strd[0] = "string0";
+	strd[1] = "string1";
+	strd[2] = "string2";
+	strd[3] = "string3";
+	iter(strd, 4, printstr);
+	delete [] strd;
+
 }

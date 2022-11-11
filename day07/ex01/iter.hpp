@@ -1,10 +1,12 @@
 #ifndef ITER_HPP
 #define ITER_HPP
-
+#include <stddef.h>
 template <typename	T>
-void	iter(T *array, size_t size,void	(*func)(T) )
+void	iter(T *array, int size, void (*func)(T))
 {
-	for	(i < )
+	for	(int i = 0 ; i < size; i++)
+	{
+		(*func)(array[i]);
+	}
 }
-
 #endif

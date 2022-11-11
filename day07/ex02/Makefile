@@ -1,9 +1,9 @@
 CC= c++
-FLAGS= -Wall -Wextra -Werror -std=c++98 
-NAME= Whatever
+FLAGS=  -std=c++98 
+NAME= Array
 SRC= main
 OBJ= $(SRC:=.o)
-HEADERS = whatever.hpp
+HEADERS = Array.hpp
 MAIN= 
 
 %.o: %.cpp $(HEADERS) 
@@ -18,4 +18,4 @@ clean:
 		@ rm -rf $(OBJ)
 fclean: clean
 		@ rm -rf $(NAME)
-re: fclean all%            
+re: fclean all

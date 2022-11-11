@@ -1,9 +1,9 @@
 CC= c++
 FLAGS= -Wall -Wextra -Werror -std=c++98 
-NAME= Form
+NAME= Iter
 SRC= main
 OBJ= $(SRC:=.o)
-HEADERS = whatever.hpp
+HEADERS = iter.hpp
 MAIN= 
 
 %.o: %.cpp $(HEADERS) 
