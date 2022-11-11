@@ -13,10 +13,6 @@ class Array
         {
             std::cout << "Default Constructor" << std::endl;
             array = new (std::nothrow) T[n];
-            // for (unsigned int i = 0; i < n ; i++)
-            // {
-            //     array[i] = (T)0;
-            // }
         }
         Array(Array const &rhs)
         {
@@ -30,15 +26,20 @@ class Array
             std::cout << "assignment Constructor" << std::endl;
             if (this->array)
                 delete [] this->array;
-            array = new (std::nothrow) T[rhs.n];
+            this->n = rhs.n;
+            this->array = new (std::nothrow) T[rhs.n];
+            if(!this->array || !rhs.array)
+                return (*this);
             for (unsigned int i = 0; i < rhs.n ; i++)
             {
-                array[i] = rhs.array[i];
+                this->array[i] = rhs.array[i];
             }
+                        std::cout << "here" << std::endl;
+            return (*this);
         }
         T& operator[] (int index)
         {
-            if (index >= n)
+            if (index >= n || index < 0)
                 throw std::exception();
             return array[index];
         }
