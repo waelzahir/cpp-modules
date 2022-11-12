@@ -1,60 +1,30 @@
 #include <iostream>
 #include "Array.hpp"
+#include <stdio.h>
 
 #define MAX_VAL 750
-int _main()
+char	*ft_strdup(const char *s1)
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
+	int		i;
+int 		s;
+	char	*str;
 
-        Array<int> test(tmp);
-    }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
-    return 0;
+	i = 0;
+	s = strlen(s1);
+    printf("%d\n", s);
+	str = (char*)malloc(((size_t)s) * sizeof(char) + 1);
+	if (!str)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
 int main()
 {
-    _main();
-    system("leaks Array");
+   std::cout << ft_strdup(" publié en 1977 avec Finn E. Kydland, il analysait si les banques centrales devaient avoir des objectifs chiffrés stricts ou être autorisées à utiliser leur pouvoir discrétionnaire pour définir la politique monétaire. Il est également bien connu pour ses travaux sur le filtre Hodrick  Prescott, utilisé pour atténuer les fluctuations dune série chronologique.")<< std::endl;
 }

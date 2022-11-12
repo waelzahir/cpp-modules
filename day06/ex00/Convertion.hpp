@@ -1,34 +1,31 @@
 #ifndef	CONVERTION_HPP
 #define CONVERTION_HPP
+#include <iostream>
+#include <cmath>
+
+typedef enum s_type
+{
+	erR,
+	charA,
+	intE,
+	floA,
+	doubL,
+	impossiblE,
+	no_prinT,
+	naN,
+	nanF,
+} t_type;
 
 class Convertion
 {
 	private:
+		char	*val;
 		std::string input;
-		int e;
+		int type;
+		int state;
 	public:
-		Convertion(void);
-		Convertion(char	*val, int ac);
-		Convertion(Convertion const &rhs);
-		Convertion& operator = (Convertion const &rhs);
+		Convertion(char	*val);
 		~Convertion();
-		class	InvalidInput : public std::expression
-		{
-			public:
-				const	char*	what() const throw()
-				{
-					return "Invalid Input";
-				}
-		};
-		class	InvalidAgrs : public std::expression
-		{
-			public:
-				const	char*	what() const throw()
-				{
-					return "Invalid Args";
-				}
-		};
-		checkInput();
+		int	setType();
 };
-
 #endif
