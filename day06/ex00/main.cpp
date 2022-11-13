@@ -1,14 +1,8 @@
-#include <iostream>
 #include "Convertion.hpp"
-#include <stdlib.h>
-int main(int ac, char   *av[])
+int main(int ac, char   **av)
 {
-
-    if (ac != 2)
-    {
-        std::cout << "./Convert [your input]"<< std::endl;
-        return 0;
-    }
-    Convertion action(av[1]);
-    return 0;
+    if (ac == 2)
+        Convertion conv(av[1]);
+    else
+        std::cout << "./convert data\n" ;
 }

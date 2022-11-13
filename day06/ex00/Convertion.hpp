@@ -1,31 +1,34 @@
-#ifndef	CONVERTION_HPP
-#define CONVERTION_HPP
+#ifndef CONV
+#define CONV
 #include <iostream>
-#include <cmath>
-
-typedef enum s_type
+#include <limits.h>
+enum t
 {
-	erR,
-	charA,
-	intE,
-	floA,
-	doubL,
-	impossiblE,
-	no_prinT,
-	naN,
-	nanF,
-} t_type;
+    PADD,
+    CHAR,
+    INT,
+    FLOAT,
+    DOUBLE,
+    NAN,
+    BUG
+};
 
 class Convertion
 {
-	private:
-		char	*val;
-		std::string input;
-		int type;
-		int state;
-	public:
-		Convertion(char	*val);
-		~Convertion();
-		int	setType();
+private:
+    std::string str;
+    int type;
+public:
+    Convertion(std::string str = "");
+    ~Convertion();
+    void    getType();
+    void    simpleCase();
+    void    printChar();
+    void    printInt();
+    void    printFloat();
+    void    printDouble();
+
 };
+
+
 #endif
