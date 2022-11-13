@@ -1,10 +1,10 @@
 CC= c++
 FLAGS= -Wall -Wextra -Werror -std=c++98  
-NAME=  convert
-SRC=  Convertion
+NAME=  type
+SRC=  Typeid
 MAIN= main
 OBJ= $(SRC:=.o)  $(MAIN:=.o)
-HEADERS = Convertion.hpp
+HEADERS = Typeid.hpp
 
 %.o: %.cpp $(HEADERS) 
 		$(CC) $(FLAGS)  -c -o $@ $<

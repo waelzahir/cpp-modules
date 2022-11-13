@@ -1,10 +1,10 @@
 CC= c++
 FLAGS= -Wall -Wextra -Werror -std=c++98  
-NAME=  convert
-SRC=  Convertion
+NAME=  Serialize
+SRC=  Serialization
 MAIN= main
 OBJ= $(SRC:=.o)  $(MAIN:=.o)
-HEADERS = Convertion.hpp
+HEADERS = Serialization.hpp DataTypes.hpp
 
 %.o: %.cpp $(HEADERS) 
 		$(CC) $(FLAGS)  -c -o $@ $<
