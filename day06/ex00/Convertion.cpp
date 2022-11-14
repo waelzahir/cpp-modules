@@ -173,7 +173,10 @@ void    Convertion::printFloat()
         }
         catch(...)
         {
-            std::cerr << "nanf" << '\n';
+            if (this->str[0] == '-')
+                    std::cout << "-inff" << std::endl;
+                else
+                    std::cout << "inff" << std::endl;
         }
 }
 void    Convertion::printDouble()
@@ -198,6 +201,9 @@ void    Convertion::printDouble()
         }
         catch(...)
         {
-            std::cerr << "nan" << '\n';
+           if (this->str[0] == '-')
+                    std::cout << "-inf" << std::endl;
+                else
+                    std::cout << "inf" << std::endl;
         }
 }
