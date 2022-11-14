@@ -2,6 +2,9 @@
 #define CONV
 #include <iostream>
 #include <limits.h>
+#include <cmath>
+
+
 enum t
 {
     PADD,
@@ -9,8 +12,7 @@ enum t
     INT,
     FLOAT,
     DOUBLE,
-    NAN,
-    BUG
+    NANI,
 };
 
 class Convertion
@@ -21,13 +23,15 @@ private:
 public:
     Convertion(std::string str = "");
     ~Convertion();
-    void    getType();
-    void    simpleCase();
+    void    typeLookup();
+    void    charLookup();
+    int    digitLookup();
+    int     nanLookup();
+    void    print();
     void    printChar();
     void    printInt();
     void    printFloat();
     void    printDouble();
-
 };
 
 

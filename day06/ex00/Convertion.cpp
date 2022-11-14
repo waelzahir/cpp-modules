@@ -1,232 +1,203 @@
 #include "Convertion.hpp"
 
-Convertion::Convertion(std::string string)
+Convertion::Convertion(std::string str)
 {
-    this->str = string;
+    this->str = str;
     if (this->str.size() == 0)
         return ;
-    this->getType();
-    this->printChar();
-    this->printInt();
-    this->printFloat();
-    this->printDouble();
+    this->typeLookup();
+    this->print();
 }
 
-Convertion::~Convertion(){}
 
-void    Convertion::getType()
+Convertion::~Convertion()
+{}
+
+void    Convertion::typeLookup()
 {
-    if (this->str == "nan" || this->str == "nanf")
-        {
-            this->type = NAN;
-            return ;
-        } 
-    size_t i = 0;
-    int sign = 0;
-    int f = 0;
-    int point = 0;
-    int num = 0;
     if (this->str.size() == 1)
+        return this->charLookup();
+    if (this->str == "-inf" || this->str == "+inf")
+        {
+            this->type = FLOAT;
+            return ;
+        }
+    if (this->nanLookup() == 1)
     {
-        this->simpleCase();
+        this->type = NANI;
         return ;
     }
-    if (this->str[0] == '-' || this->str[0] == '+')
-    {
-        sign++;
-        i++;
-    }
-    while (i < this->str.size())
-    {
-        if (this->str[i] == '.')
-            point++;
-        if (this->str[i] == 'f')
-            f++;
-        if (isdigit(this->str[i]))
-            num++;
-        i++;
-    }
-    if ((int)i != (sign + f + point + num) || f >1 || point > 1)
-            this->type = BUG;
-    else if (f)
-        this->type = FLOAT;
-    else if (point)
-        this->type = DOUBLE;
-    else
-        this->type = INT;
-    if (this->str[this->str.size()] == '-' || this->str[this->str.size()] == '+')
-        this->type = NAN;
+    this->type = this->digitLookup();
 }
-void    Convertion::simpleCase()
+
+void    Convertion::charLookup()
 {
     if (isdigit(this->str[0]))
         this->type = INT;
     else
         this->type = CHAR;
 }
-void    Convertion::printChar()
-{
-    if (this->type == CHAR && isprint(this->str[0]))
-        std::cout << "char: "<< this->str[0] << std::endl;
-    else if (this->type == CHAR && !isprint(this->str[0]))
-        std::cout << "char: "<< "not printable" << std::endl;
-    else if (this->type != CHAR)
-    {
-        try
-        {
-            if (this->type == INT)
-            {
-                std::cout << "char: ";
-                int i = std::stoi(this->str);
-                if (isprint(i)) 
-                    std::cout << char(i) << "\n";
-                else if (isascii(i))
-                    std::cout << "non printable\n";
-                else 
-                    std::cout << "imposible\n";                
-            }
-            if (this->type == FLOAT)
-            {
-                std::cout << "char: ";
-                float i = std::stof(this->str);
-                if (isprint(i)) 
-                    std::cout << char(i) << "\n";
-                else if (isascii(i))
-                    std::cout << "non printable\n";
-                else 
-                    std::cout << "imposible\n";            
-            }
-             if (this->type == DOUBLE)
-            {
-                std::cout << "char: ";
-                float i = std::stod(this->str);
-                if (isprint(i)) 
-                    std::cout << char(i) << "\n";
-                else if (isascii(i))
-                    std::cout << "non printable\n";
-                else 
-                    std::cout << "imposible\n";   
-            }
-            if (this->type == NAN || this->type == BUG)
-                std::cout << "char: impossible\n";
-        }
-        catch(...)
-        {
-            std::cout << "impossible\n";
-        }
-    }
 
+int    Convertion::nanLookup()
+{
+    if (this->str == "nan" || this->str == "nanf")
+        return 1;
+    int poin = 0;
+    int flo = 0;
+    int digit  = 0;
+    int sig = 0;
+    int i = 0;
+    if (this->str[0] == '-' || this->str[0] == '+')
+        {
+            i++;
+            sig++;
+        }
+    while (i < (int)this->str.size())
+    {
+        if (this->str[i] == '.')
+            poin++;
+        if (this->str[i] == 'f')
+            flo++;
+        if (isdigit(this->str[i]))
+            digit++; 
+        i++;
+    }
+    if ((poin + flo  + sig + digit) != i)
+        return 1;
+    if (sig && !(this->str[0] != '-' || this->str[0] != '+'))
+        return 1;
+    if (flo && (this->str[i-1] != 'f'))
+        return 1;
+    if (flo > 1 || poin > 1)
+        return 1;
+    return 0;
 }
 
+ int    Convertion::digitLookup()
+ {
+    size_t i = this->str.size();
+    if (this->str[i - 1] == 'f')
+        return FLOAT;
+    size_t j = 0;
+    while (j < i)
+    {
+        if (this->str[j] == '.')
+            return DOUBLE;
+        j++;
+    }
+    return INT;
+ }
+
+ void   Convertion::print()
+ {
+    std::cout << "char: ";
+    this->printChar();
+    std::cout << "int: ";
+    this->printInt();
+    std::cout << "float: ";
+    this->printFloat();
+    std::cout << "double: ";
+    this->printDouble();
+ }
+
+void    Convertion::printChar()
+{
+    if (this->type == CHAR)
+    {
+        if (isprint(this->str[0]))
+            std::cout << this->str << "\n";
+        else
+            std::cout << "n-printable" << "\n";
+        return ;
+    }
+    if (this->type == NANI)
+    {
+        std::cout << "imposible" << "\n";
+        return ;
+    }
+    try{
+        double d = std::stod(this->str);
+        if (!isascii(d))
+            throw 1;
+        if (isprint(d))
+            std::cout << static_cast<char>(d) << std::endl;
+        else
+            std::cout << "n-printable" << "\n";
+    }
+    catch (...)
+    {
+        std::cout << "imposible" << "\n";
+    }
+}
 void    Convertion::printInt()
 {
     if (this->type == CHAR)
-        std::cout << "int: "<< (int)this->str[0] << std::endl;
-    else if (this->type != CHAR)
-    {
+            std::cout  << static_cast<int>(this->str[0]) << std::endl; 
+    else if (this->type == NANI)
+        std::cout << "imposible" << std::endl;
+    else
         try
         {
-            if (this->type == INT)
+            double  d = std::stod(this->str);
+            if (d <= INT_MAX && d >= INT_MIN)
             {
-                std::cout << "int: ";
-                int i = std::stoi(this->str);
-                std::cout << i << "\n";  
+                std::cout << static_cast<int> (d) << std::endl;
             }
-            if (this->type == FLOAT)
-            {
-                std::cout << "int: ";
-                float i = std::stof(this->str);
-                if (i <= INT_MAX || i >= INT_MIN)
-                    std::cout << (int)i << std::endl;
-                else
-                    std::cout << "imposible\n";      
-            }
-             if (this->type == DOUBLE)
-            {
-                std::cout << "int: ";
-                double i = std::stod(this->str);
-                if (i <= INT_MAX || i >= INT_MIN)
-                    std::cout << (int)i << std::endl;
-                else
-                    std::cout << "imposible\n";   
-            }
-            if (this->type == NAN || this->type == BUG)
-                std::cout << "int: impossible\n";
+            else
+                throw 1;
         }
         catch(...)
         {
-            std::cout << "impossible\n";
+            std::cerr << "imposible" << '\n';
         }
-    }
 }
-
 void    Convertion::printFloat()
 {
     if (this->type == CHAR)
-        std::cout << "float: "<< (float)this->str[0] << "f" << std::endl;
-    else if (this->type != CHAR)
-    {
+            std::cout  << static_cast<float>(this->str[0]) << "f" << std::endl; 
+    else if (this->type == NANI)
+        std::cout << "nanf" << std::endl;
+    else
         try
         {
-            if (this->type == FLOAT || this->type == INT)
+            float  d = std::stof(this->str);
+            if (std::isinf(d))
             {
-                std::cout << "float: ";
-                float i = std::stof(this->str);
-                std::cout << i << "f\n";   
+                if (this->str[0] == '-')
+                    std::cout << "-inff" << std::endl;
+                else
+                    std::cout << "inff" << std::endl;
             }
-             if (this->type == DOUBLE)
-            {
-                std::cout << "float: ";
-                float i = std::stof(this->str);
-                std::cout << i << "f" << std::endl;
-
-            }
-            if (this->type == NAN || this->type == BUG)
-                std::cout << "float: nanf\n";
+            else
+                std::cout << d <<"f" << std::endl;
         }
         catch(...)
         {
-            if (this->type == BUG || this->type == NAN)
-                {
-                    std::cout << "nanf\n";
-                    return ;
-                }
-            if (this->str[0] == '-')
-                {
-                    std::cout << "-inff\n";
-                    return ;
-                }
-                std::cout << "+inff\n";
+            std::cerr << "nanf" << '\n';
         }
-    }
 }
 void    Convertion::printDouble()
 {
     if (this->type == CHAR)
-        std::cout << "double: "<< (double)this->str[0]  << std::endl;
-    else if (this->type != CHAR)
-    {
+            std::cout  << static_cast<double>(this->str[0]) << std::endl; 
+    else if (this->type == NANI)
+        std::cout << "nan" << std::endl;
+    else
         try
         {
-            std::cout << "double: ";
-            if (this->type  == NAN || this->type == BUG)
-                throw 1;
-            double f = std::stod(this->str);
-            std::cout << f << std::endl;
+            double  d = std::stof(this->str);
+            if (std::isinf(d))
+            {
+                if (this->str[0] == '-')
+                    std::cout << "-inf" << std::endl;
+                else
+                    std::cout << "inf" << std::endl;
+            }
+            else
+                std::cout << d << std::endl;
         }
         catch(...)
         {
-            if (this->type == BUG || this->type == NAN)
-                {
-                    std::cout << "nan\n";
-                    return ;
-                }
-            if (this->str[0] == '-')
-                {
-                    std::cout << "-inf\n";
-                    return ;
-                }
-                std::cout << "+inf\n";
+            std::cerr << "nan" << '\n';
         }
-    }
 }
