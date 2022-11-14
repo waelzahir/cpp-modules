@@ -185,7 +185,7 @@ void    Convertion::printDouble()
     else
         try
         {
-            double  d = std::stof(this->str);
+            double  d = std::stod(this->str);
             if (std::isinf(d))
             {
                 if (this->str[0] == '-')
